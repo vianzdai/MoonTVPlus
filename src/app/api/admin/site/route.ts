@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
       OIDCButtonText?: string;
       OIDCMinTrustLevel?: number;
       AnalyticsEnabled?: boolean;
-      AnalyticsProvider?: 'umami' | 'google' | 'custom';
+      AnalyticsProvider?: 'umami' | 'google' | 'clarity' | 'custom';
       AnalyticsScriptUrl?: string;
       AnalyticsWebsiteId?: string;
       AnalyticsCustomScript?: string;
@@ -239,6 +239,7 @@ export async function POST(request: NextRequest) {
       (AnalyticsProvider !== undefined &&
         AnalyticsProvider !== 'umami' &&
         AnalyticsProvider !== 'google' &&
+        AnalyticsProvider !== 'clarity' &&
         AnalyticsProvider !== 'custom') ||
       (AnalyticsScriptUrl !== undefined && typeof AnalyticsScriptUrl !== 'string') ||
       (AnalyticsWebsiteId !== undefined && typeof AnalyticsWebsiteId !== 'string') ||

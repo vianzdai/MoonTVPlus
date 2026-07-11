@@ -408,7 +408,7 @@ interface SiteConfig {
   OIDCClientSecret?: string;
   OIDCButtonText?: string;
   AnalyticsEnabled?: boolean;
-  AnalyticsProvider?: 'umami' | 'google' | 'custom';
+  AnalyticsProvider?: 'umami' | 'google' | 'clarity' | 'custom';
   AnalyticsScriptUrl?: string;
   AnalyticsWebsiteId?: string;
   AnalyticsCustomScript?: string;
@@ -11597,13 +11597,14 @@ const SiteConfigComponent = ({
                   onChange={(e) =>
                     setSiteSettings((prev) => ({
                       ...prev,
-                      AnalyticsProvider: e.target.value as 'umami' | 'google' | 'custom',
+                      AnalyticsProvider: e.target.value as 'umami' | 'google' | 'clarity' | 'custom',
                     }))
                   }
                   className='mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200'
                 >
                   <option value='umami'>Umami（开源，自托管）</option>
                   <option value='google'>Google Analytics</option>
+                  <option value='clarity'>Microsoft Clarity（免费，热力图+会话回放）</option>
                   <option value='custom'>自定义代码</option>
                 </select>
               </div>
@@ -11672,6 +11673,29 @@ const SiteConfigComponent = ({
                   />
                   <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>
                     Google Analytics 4 的 Measurement ID，在 GA 后台「数据流」中获取
+                  </p>
+                </div>
+              )}
+
+              {siteSettings.AnalyticsProvider === 'clarity' && (
+                <div>
+                  <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>
+                    Project ID
+                  </label>
+                  <input
+                    type='text'
+                    value={siteSettings.AnalyticsWebsiteId}
+                    onChange={(e) =>
+                      setSiteSettings((prev) => ({
+                        ...prev,
+                        AnalyticsWebsiteId: e.target.value,
+                      }))
+                    }
+                    placeholder='e.g. abc1234567'
+                    className='mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200'
+                  />
+                  <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>
+                    Microsoft Clarity 的 Project ID，在 clarity.microsoft.com 项目设置中获取
                   </p>
                 </div>
               )}
